@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CareDesk | AI assistant prototype</title>
+  <style>
+    :root{--navy:#102f3f;--navy2:#173d4e;--teal:#12877f;--teal-dark:#08766f;--ink:#1c3440;--muted:#6e8490;--line:#dce7ea;--paper:#fff;--wash:#f2f7f7;--mint:#e3f5f1;--amber:#fff5e8;--amber-ink:#8a5a1e;--shadow:0 18px 55px rgba(22,56,70,.11)}
+    *{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer}a{color:inherit}
+    .shell{min-height:100vh;display:grid;grid-template-columns:244px 1fr}.sidebar{background:var(--navy);color:#eaf3f5;padding:26px 16px;display:flex;flex-direction:column;gap:28px}.brand{font-size:21px;font-weight:800;letter-spacing:-.5px;padding:0 10px}.brand span{color:#62d1c2}.nav-label{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:#88a5af;padding:0 12px;margin-bottom:8px}.nav{display:grid;gap:6px}.nav-item{border:0;background:transparent;color:#c6d8dd;text-align:left;padding:11px 13px;border-radius:12px;display:flex;gap:12px;align-items:center}.nav-item.active{background:#234c5e;color:#fff;font-weight:700}.nav-item .icon{width:19px;text-align:center;color:#9bc9c8}.side-note{margin-top:auto;border:1px solid #315667;padding:14px;border-radius:14px;color:#b5c9ce;font-size:12px}.side-note strong{display:block;color:#e8f3f4;margin-bottom:5px}
+    main{min-width:0}.topbar{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,54px)}.crumb{color:var(--muted)}.crumb b{color:var(--ink)}.user{display:flex;align-items:center;gap:10px;color:#58717c;font-size:14px}.avatar{width:34px;height:34px;border-radius:50%;background:var(--mint);color:var(--teal-dark);display:grid;place-items:center;font-weight:800}
+    .content{max-width:1200px;margin:0 auto;padding:40px clamp(20px,4vw,54px) 60px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-dark)}h1{font-size:clamp(28px,3vw,38px);letter-spacing:-1.2px;line-height:1.12;margin:10px 0 10px}.intro{margin:0;color:var(--muted);max-width:680px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;margin-top:30px;align-items:start}.chat-card,.info-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.chat-card{overflow:hidden}.chat-head{padding:19px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:15px}.chat-title{display:flex;align-items:center;gap:12px}.botmark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#d7f4ed,#bfe9e3);display:grid;place-items:center;font-size:22px}.chat-title h2{font-size:16px;margin:0}.chat-title p{font-size:12px;color:var(--muted);margin:2px 0 0}.prototype-tag{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:800;color:#6a5a35;background:#fff2d9;padding:7px 10px;border-radius:20px;white-space:nowrap}.thread{min-height:380px;max-height:560px;overflow:auto;padding:24px;display:flex;flex-direction:column;gap:17px}.message{display:flex;gap:10px;max-width:88%;align-items:flex-start}.message.user{align-self:flex-end;flex-direction:row-reverse}.mini-avatar{flex:0 0 30px;width:30px;height:30px;border-radius:10px;background:#e4f4f1;color:var(--teal-dark);display:grid;place-items:center;font-size:14px}.message.user .mini-avatar{background:#e8edf3;color:#526a79}.bubble{background:#f4f8f8;border:1px solid #edf2f3;padding:12px 15px;border-radius:4px 15px 15px 15px;color:#344f5a}.message.user .bubble{background:#e2f4f0;border-color:#d5eee8;border-radius:15px 4px 15px 15px}.bubble p{margin:0}.bubble p+p{margin-top:8px}.suggestion-label{padding:0 24px 8px;color:var(--muted);font-size:12px;font-weight:700}.suggestions{padding:0 24px 18px;display:flex;flex-wrap:wrap;gap:8px}.suggestion{border:1px solid #cfe3e3;background:#fff;color:#315962;border-radius:20px;padding:8px 12px;font-size:12px;transition:.18s}.suggestion:hover{border-color:var(--teal);background:#f2fbf9}.composer-wrap{border-top:1px solid var(--line);padding:15px 20px 18px}.composer{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #cadadd;border-radius:14px;padding:7px 8px 7px 15px;box-shadow:0 3px 12px rgba(16,47,63,.04)}.composer:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px rgba(18,135,127,.12)}.composer input{border:0;outline:0;flex:1;min-width:0;color:var(--ink);background:transparent;padding:8px 0}.composer input::placeholder{color:#91a3aa}.send{border:0;border-radius:10px;background:var(--teal);color:white;width:40px;height:40px;font-size:18px;font-weight:700}.send:hover{background:var(--teal-dark)}.under-composer{text-align:center;color:#84969d;font-size:11px;margin:9px 0 0}.info-card{padding:20px}.info-card h3{font-size:15px;margin:0 0 13px}.notice{font-size:12px;color:var(--amber-ink);background:var(--amber);border:1px solid #f3dfc2;border-radius:12px;padding:13px 14px}.notice strong{display:block;margin-bottom:5px}.scope{margin-top:18px}.scope-row{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-top:1px solid #edf1f2;font-size:12px;color:#5b727c}.scope-row:first-of-type{border-top:0}.check{width:20px;height:20px;flex:0 0 20px;border-radius:50%;background:var(--mint);color:var(--teal-dark);display:grid;place-items:center;font-size:12px;font-weight:800}.footer-note{font-size:11px;color:#7c9098;margin:16px 0 0;line-height:1.5}.live-chip{display:inline-flex;gap:6px;align-items:center;color:#60767f;font-size:11px}.dot{width:7px;height:7px;background:#d69d3d;border-radius:50%}.typing{color:#6d858e;font-size:12px;font-style:italic}
+    @media(max-width:900px){.shell{grid-template-columns:76px 1fr}.sidebar{padding:22px 10px}.brand{font-size:0;text-align:center;padding:0}.brand:first-letter{font-size:21px}.nav-label,.nav-item span:not(.icon),.side-note{display:none}.nav-item{justify-content:center;padding:12px 8px}.nav-item .icon{font-size:18px}.layout{grid-template-columns:1fr}.info-card{order:2}}
+    @media(max-width:560px){.shell{display:block}.sidebar{height:58px;padding:0 16px;flex-direction:row;align-items:center}.brand{font-size:20px}.sidebar .nav-label,.sidebar .nav,.side-note{display:none}.topbar{height:58px;padding:0 17px}.content{padding:27px 15px 36px}.layout{margin-top:22px;gap:15px}.chat-head{padding:15px}.thread{padding:17px;min-height:300px}.suggestion-label,.suggestions{padding-left:17px;padding-right:17px}.composer-wrap{padding:12px}.prototype-tag{font-size:9px;padding:6px 8px}.message{max-width:96%}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Clinic navigation">
+      <div class="brand">Care<span>Desk</span></div>
+      <div>
+        <div class="nav-label">Clinic workspace</div>
+        <nav class="nav">
+          <button class="nav-item"><span class="icon">◫</span><span>Overview</span></button>
+          <button class="nav-item"><span class="icon">♙</span><span>Patients</span></button>
+          <button class="nav-item"><span class="icon">▦</span><span>Appointments</span></button>
+          <button class="nav-item"><span class="icon">⚕</span><span>Doctor dashboard</span></button>
+          <button class="nav-item"><span class="icon">◉</span><span>Message queue</span></button>
+          <button class="nav-item active"><span class="icon">✦</span><span>AI assistant</span></button>
+        </nav>
+      </div>
+      <div class="side-note"><strong>Human-led care</strong>CareDesk helps with clinic information. Clinical decisions stay with licensed clinicians.</div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div class="crumb">Clinic team / <b>AI assistant</b></div>
+        <div class="user"><div class="avatar">CD</div><span>Clinic team</span></div>
+      </header>
+      <section class="content">
+        <div class="eyebrow">Administrative support</div>
+        <h1>Clinic information, made easier.</h1>
+        <p class="intro">Ask about booking steps, clinic contact options, or what to bring to an appointment. This prototype uses sample answers and does not access patient records.</p>
+        <div class="layout">
+          <section class="chat-card" aria-label="Assistant conversation">
+            <div class="chat-head">
+              <div class="chat-title"><div class="botmark" aria-hidden="true">✦</div><div><h2>CareDesk Guide</h2><p>Administrative questions only</p></div></div>
+              <span class="prototype-tag">Prototype · AI not connected</span>
+            </div>
+            <div class="thread" id="thread" aria-live="polite">
+              <div class="message assistant"><div class="mini-avatar">✦</div><div class="bubble"><p>Hello! I can help with general clinic logistics, such as booking, rescheduling, and appointment preparation.</p><p>I can’t assess symptoms or give medical advice. For care questions, please contact the clinic team.</p></div></div>
+            </div>
+            <div class="suggestion-label">Try asking</div>
+            <div class="suggestions">
+              <button class="suggestion">How do I reschedule?</button>
+              <button class="suggestion">What should I bring?</button>
+              <button class="suggestion">How do I contact the clinic?</button>
+            </div>
+            <form class="composer-wrap" id="composer">
+              <div class="composer"><input id="question" autocomplete="off" placeholder="Ask a clinic logistics question…" aria-label="Ask a clinic logistics question"><button class="send" aria-label="Send question" type="submit">↑</button></div>
+              <p class="under-composer">Prototype replies use sample content and stay in this browser tab.</p>
+            </form>
+          </section>
+          <aside class="info-card">
+            <h3>Prototype boundaries</h3>
+            <div class="notice"><strong>Do not enter patient details</strong>This demo does not connect to an AI service or send messages. Keep real patient information out of this prototype.</div>
+            <div class="scope">
+              <div class="scope-row"><span class="check">✓</span><span>Answers limited to general clinic logistics</span></div>
+              <div class="scope-row"><span class="check">✓</span><span>No access to patient records or email queue</span></div>
+              <div class="scope-row"><span class="check">✓</span><span>Clinical questions are routed to clinic staff</span></div>
+              <div class="scope-row"><span class="check">✓</span><span>Sample responses only; AI integration is not enabled</span></div>
+            </div>
+            <p class="footer-note"><span class="live-chip"><span class="dot"></span> Demo mode</span><br>Before a real AI connection, the clinic must approve the content, data handling, provider, safety rules, and pilot plan.</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const thread=document.getElementById('thread'),form=document.getElementById('composer'),input=document.getElementById('question');
+    function answerFor(q){const s=q.toLowerCase();if(/resched|change.*appointment|move.*appointment/.test(s))return 'To change an appointment, contact the clinic team with your booking details. Staff can check the schedule and confirm an available time. This prototype does not change bookings.';if(/bring|prepare|preparation|documents/.test(s))return 'Please follow any instructions the clinic gave you. If you are unsure what documents or items are needed for your visit, contact the clinic team. This prototype does not know your personal care requirements.';if(/contact|phone|email|address|hours|open|location/.test(s))return 'Clinic contact details and hours should be added here only after the clinic verifies and approves them. For now, please use the contact information provided directly by your clinic.';return 'I can help only with general clinic logistics in this prototype. I can’t answer medical questions or access your booking. Please contact the clinic team for help.'}
+    function addMessage(text,role){const row=document.createElement('div');row.className='message '+role;const icon=document.createElement('div');icon.className='mini-avatar';icon.textContent=role==='user'?'You':'✦';const bubble=document.createElement('div');bubble.className='bubble';const p=document.createElement('p');p.textContent=text;bubble.appendChild(p);row.append(icon,bubble);thread.appendChild(row);thread.scrollTop=thread.scrollHeight}
+    function submit(q){const text=q.trim();if(!text)return;addMessage(text,'user');input.value='';addMessage(answerFor(text),'assistant')}
+    form.addEventListener('submit',e=>{e.preventDefault();submit(input.value)});document.querySelectorAll('.suggestion').forEach(b=>b.addEventListener('click',()=>submit(b.textContent)));
+  </script>
+</body>
+</html>
